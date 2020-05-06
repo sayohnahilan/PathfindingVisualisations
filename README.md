@@ -1,6 +1,6 @@
 # PathfindingVisualisations
 
-Inspiration:
+Inspiration:  
 [1] [The Projects That Got Me Into Google](https://youtu.be/n4t_-NjY_Sg?t=178)  
 
 Resources:  
