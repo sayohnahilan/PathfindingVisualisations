@@ -1,27 +1,36 @@
 import pygame
-from nodes import Node
+from nodes import node
+from startend import startEnd
 
 pygame.init()
 
-size = [700, 700]
-screen = pygame.display.set_mode(size)
+size = [800, 800]
+window = pygame.display.set_mode(size)
 pygame.display.set_caption('Visualizing A Star Path Finding')
 
 clock = pygame.time.Clock()
 fps = 120
 
+start = startEnd(20, 20, "start")
+end = startEnd(760, 760, "end")
+
 grid = []
-for i in range(0, 700, 20):
-    for j in range(0, 700, 20):
-        grid.append(Node(j, i))
+for y in range(0, 800, 20):
+    for x in range(0, 800, 20):
+        grid.append(node(x, y, "nth"))
 
-running = False
+running = True
 
-while not running:
+while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.display.quit()
             pygame.quit()
 
     for box in grid:
-        box.draw(screen)
+        box.draw(window)
+    start.draw(window)
+    end.draw(window)
+
+    pygame.display.update()
+    clock.tick(fps)
