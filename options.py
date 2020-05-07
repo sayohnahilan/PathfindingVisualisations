@@ -11,6 +11,7 @@ class mainWindow(tk.Tk):
 
         # Variables to pass onto runner
         self.gameOptions = {
+            "alg": tk.StringVar(),
             "startX": tk.IntVar(),
             "startY": tk.IntVar(),
             "endX": tk.IntVar(),
@@ -48,12 +49,20 @@ class Options(ttk.Frame):
         ttk.Frame.__init__(self, parent)
         self.controller = controller
 
+        algLabel = ttk.Label(self, text="Select an algorithm: ")
         startLabel = ttk.Label(self, text="Select a start location, (x, y): ")
         endLabel = ttk.Label(self, text="Select a end location, (x, y): ")
 
         options = [i for i in range(40)]
 
         # Checkboxes for options
+        algBox = ttk.Combobox(
+            self,
+            state="readonly",
+            textvariable=self.controller.gameOptions["alg"],
+            values=("Breadth First Search", "Depth First Search"),
+        )
+        algBox.current(0)
         startXBox = ttk.Combobox(
             self,
             state="readonly",
@@ -91,11 +100,13 @@ class Options(ttk.Frame):
         startButton = ttk.Button(
             self, text="Start", command=lambda: controller.endGame()
         )
-        startLabel.grid(column=0, row=0, sticky=("nw"))
-        endLabel.grid(column=0, row=1, sticky=("nw"))
-        startXBox.grid(column=1, row=0)
-        startYBox.grid(column=2, row=0)
-        endXBox.grid(column=1, row=1)
-        endYBox.grid(column=2, row=1)
-        confirmLabel.grid(column=0, row=4, columnspan=2, rowspan=2)
-        startButton.grid(column=1, row=6, pady=10)
+        algLabel.grid(column=0, row=0, sticky=("nw"))
+        startLabel.grid(column=0, row=1, sticky=("nw"))
+        endLabel.grid(column=0, row=2, sticky=("nw"))
+        algBox.grid(column=1, row=0)
+        startXBox.grid(column=1, row=1)
+        startYBox.grid(column=2, row=1)
+        endXBox.grid(column=1, row=2)
+        endYBox.grid(column=2, row=2)
+        confirmLabel.grid(column=0, row=5, columnspan=2, rowspan=2)
+        startButton.grid(column=1, row=7, pady=10)

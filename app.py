@@ -20,12 +20,14 @@ yellow = [255, 255, 0]
 # app.mainloop()
 #
 # # pull data from options window
+# alg = app.gameOptions["alg"].get()
 # startX = app.gameOptions["startX"].get()
 # startY = app.gameOptions["startY"].get()
 # endX = app.gameOptions["endX"].get()
 # endY = app.gameOptions["endY"].get()
 
 # dev
+alg = "Breadth First Search"
 startX = 1
 startY = 1
 endX = 36
@@ -69,7 +71,10 @@ while not startVisualizing:
 
 
 # start a thread which runs the alg
-myThread = threading.Thread(target=mySearch.breadthFirstSearch())
+if alg == "Breadth First Search":
+    myThread = threading.Thread(target=mySearch.breadthFirstSearch())
+elif alg == "Depth First Search":
+    myThread = threading.Thread(target=mySearch.depthFirstSearch())
 myThread.start()
 
 
