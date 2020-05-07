@@ -14,5 +14,11 @@ class Board:
         for l in range(w):
             pygame.draw.aaline(self.screen, c, (0, y), (self.width, y))
             pygame.draw.aaline(self.screen, c, (x, 0), (x, self.height))
-            x = x + 20
-            y = y + 20
+            x += 20
+            y += 20
+
+    def colourOne(self, x, y, c):
+        x *= 20
+        y *= 20
+        square = pygame.Rect(y, x, 19, 19)
+        pygame.draw.rect(self.screen, c, square)
