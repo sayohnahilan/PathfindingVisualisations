@@ -1,6 +1,8 @@
 import sys
 import pygame
 from pygame.locals import *
+import queue
+import threading
 from options import *
 from board import *
 from algorithms import *
@@ -30,8 +32,9 @@ endX = 36
 endY = 36
 
 # initialize board and initial squares
+colorQ = queue.Queue()
 myBoard = Board(800, 800, black)
-mySearch = Algorithm(40, 40, (startX, startY), (endX, endY))
+mySearch = Search(40, 40, (startX, startY), (endX, endY), colorQ)
 pygame.init()
 myBoard.drawLines(white)
 myBoard.colourOne(startX, startY, blue)
@@ -59,8 +62,24 @@ while not startVisualizing:
                 mouseX, mouseY = myBoard.findSquare(event.pos[0], event.pos[1])
                 square = pygame.Rect(mouseX, mouseY, 20, 20)
                 pygame.draw.rect(myBoard.screen, yellow, square)
+                mySearch.makeWall(mouseY // 20, mouseX // 20, yellow)
             except:
                 pass
     pygame.display.update()
 
-print("sayohn exited")
+
+# start a thread which runs the alg
+myThread = threading.Thread(target=mySearch.breadthFirstSearch())
+myThread.start()
+
+
+while 1:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+
+    # if a colour is added to the queue (by alg), colour it
+    if not colorQ.empty():
+        x, y, c = colorQ.get()
+        myBoard.colourOne(x, y, c)
+        pygame.display.update()

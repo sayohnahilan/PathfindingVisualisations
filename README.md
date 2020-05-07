@@ -9,3 +9,4 @@ Resources:
 [2] [Dropdown Menus With TKinter](youtube.com/watch?v=3E_fK5hCUnI)  
 [3] [Pygame Tutorials - Input Handling](https://www.pygame.org/ftp/contrib/input.html)  
 [4] [Breadth First Search](hackerearth.com/practice/algorithms/graphs/breadth-first-search/tutorial/)  
+[5] [Thread-based parallelism](https://docs.python.org/3/library/threading.html)  
