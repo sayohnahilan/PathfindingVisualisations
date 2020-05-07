@@ -22,3 +22,9 @@ class Board:
         y *= 20
         square = pygame.Rect(y, x, 19, 19)
         pygame.draw.rect(self.screen, c, square)
+
+    def findSquare(self, x, y):
+        x = x - (x % 20)
+        y = y - (y % 20)
+        coord = (x, y)
+        return coord
