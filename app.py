@@ -1,11 +1,18 @@
-from screen import *
+import pygame
+from options import *
+from board import *
+
+# colours
+white = [255, 255, 255]
+black = [0, 0, 0]
+red = [255, 0, 0]
+green = [0, 255, 0]
+blue = [0, 0, 255]
+yellow = [255, 255, 0]
 
 # run options window
 app = mainWindow()
 app.mainloop()
-
-row = (800, 40)
-col = (800, 40)
 
 # pull data from options window
 startX = app.gameOptions["startX"].get()
@@ -13,4 +20,8 @@ startY = app.gameOptions["startY"].get()
 endX = app.gameOptions["endX"].get()
 endY = app.gameOptions["endY"].get()
 
-print("Sayohn", startX, startY, endX, endY)
+# initialize board and initial squares
+myBoard = Board(800, 800, white)
+pygame.init()
+myBoard.drawLines(black)
+pygame.display.update()
