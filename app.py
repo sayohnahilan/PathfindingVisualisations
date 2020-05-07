@@ -3,6 +3,7 @@ import pygame
 from pygame.locals import *
 from options import *
 from board import *
+from algorithms import *
 
 # colours
 white = [255, 255, 255]
@@ -29,9 +30,10 @@ endX = 36
 endY = 36
 
 # initialize board and initial squares
-myBoard = Board(800, 800, white)
+myBoard = Board(800, 800, black)
+mySearch = Algorithm(40, 40, (startX, startY), (endX, endY))
 pygame.init()
-myBoard.drawLines(black)
+myBoard.drawLines(white)
 myBoard.colourOne(startX, startY, blue)
 myBoard.colourOne(endX, endY, blue)
 
@@ -54,13 +56,11 @@ while not startVisualizing:
 
         if drawingWalls:
             try:
-                mouseX, mouseY = event.pos
-                mouseX, mouseY = myBoard.findSquare(mouseX, mouseY)
+                mouseX, mouseY = myBoard.findSquare(event.pos[0], event.pos[1])
                 square = pygame.Rect(mouseX, mouseY, 20, 20)
                 pygame.draw.rect(myBoard.screen, yellow, square)
-                pygame.display.update()
             except:
                 pass
-    pygame.display.flip()
+    pygame.display.update()
 
 print("sayohn exited")
