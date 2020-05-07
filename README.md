@@ -6,7 +6,8 @@ Inspiration:
 
 Resources:  
 [1] [Multiple Windows/Frames in Tkinter GUI with Python](https://pythonprogramming.net/change-show-new-frame-tkinter/)  
-[2] [Dropdown Menus With TKinter](youtube.com/watch?v=3E_fK5hCUnI)  
+[2] [Tkinter ttk Combobox](https://docs.python.org/3/library/tkinter.ttk.html#tkinter.ttk.Combobox)  
 [3] [Pygame Tutorials - Input Handling](https://www.pygame.org/ftp/contrib/input.html)  
-[4] [Breadth First Search](hackerearth.com/practice/algorithms/graphs/breadth-first-search/tutorial/)  
+[4] [Breadth First Search](https://www.hackerearth.com/practice/algorithms/graphs/breadth-first-search/tutorial/)  
 [5] [Thread-based parallelism](https://docs.python.org/3/library/threading.html)  
+[6] [Depth First Search](https://www.hackerearth.com/practice/algorithms/graphs/depth-first-search/tutorial/)  
