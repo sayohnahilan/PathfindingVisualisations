@@ -1,7 +1,5 @@
-# PathfindingVisualisations
+# PathfindingVisualisations (WIP)
 Using pygame to visualize various pathfinding algorithms. 
-
-## Project is currently a WIP
 
 To run:
 1. Clone repository.
