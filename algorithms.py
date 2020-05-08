@@ -1,4 +1,6 @@
 import queue
+import heapq
+import sys
 
 white = [255, 255, 255]
 black = [0, 0, 0]
@@ -7,9 +9,13 @@ green = [0, 255, 0]
 blue = [0, 0, 255]
 yellow = [255, 255, 0]
 
+
 class Node:
     c = black
     parent = (0, 0)
+    g = sys.maxsize  # cost
+    h = 0
+    f = 0  # = g + h
 
 
 class Search:
@@ -22,15 +28,19 @@ class Search:
         self.atEndNode = False
         self.matrix = [[Node() for i in range(x)] for j in range(y)]
 
-
     # setter for a matrix location
     def colourMatrix(self, x, y, c):
         self.matrix[x][y].c = c
+        self.matrix[x][y].g = sys.maxsize
 
     # return the nodes beside a start node
-    def nodeNeighbors(self, node):
+    def nodeNeighbors(self, node, diag):
         x, y = node
-        adj = [(x, y + 1), (x + 1, y), (x, y - 1), (x - 1, y)]
+        if diag == True:
+            adj = [(x - 1, y), (x - 1, y + 1), (x, y + 1), (x + 1, y + 1), (x + 1, y), (x + 1, y - 1), (x, y - 1),
+                   (x - 1, y - 1)]
+        else:
+            adj = [(x, y + 1), (x + 1, y), (x, y - 1), (x - 1, y)]
         adj = filter(self.onScreen, adj)
         return adj
 
@@ -41,6 +51,70 @@ class Search:
             return True
         else:
             return False
+
+    def aStar(self):
+        # a queue to store nodes to check / travel to next
+        priorityQueue = []
+        heapq.heapify(priorityQueue)
+        heapq.heappush(priorityQueue, (0, self.start))
+        closed = {}
+
+        # start node cost = 0
+        self.matrix[self.start[0]][self.start[1]].g = 0
+
+        # for every node in queue
+        while not len(priorityQueue) == 0:
+
+            # look for lowest F cost square and move to closed list
+            node = heapq.heappop(priorityQueue)[1]
+            closed[node] = True
+            i, j = node
+
+            # colour the current node red
+            self.colorQ.put((i, j, red))
+
+            # stop if end has been found
+            if node == self.end:
+                self.atEndNode = True
+                break
+
+            # for each neighbor node (including diagonals)
+            for nei in self.nodeNeighbors(node, True):
+                neiX, neiY = nei
+
+                # if its a wall or marked closed, don't do anything
+                if nei in closed or self.matrix[neiX][neiY].c == yellow:
+                    continue
+
+                # calculate cost from node to neighbor
+                newCost = self.matrix[i][j].g + self.calcCost(node, nei)
+                curCost = self.matrix[neiX][neiY].g
+
+                # continue if not visited or new cost is less then the current cost
+                if curCost == sys.maxsize or newCost < curCost:
+                    # update and recalculate h and f
+                    self.matrix[neiX][neiY].g = newCost
+                    h = self.heuristic(nei, self.end)
+                    f = newCost + h
+
+                    # set parent and add to the queue
+                    heapq.heappush(priorityQueue, (f, nei))
+                    self.matrix[neiX][neiY].parent = node
+                    self.colorQ.put((neiX, neiY, green))
+        self.backtrack()
+
+    # returns one if in same row/column, else 1.414
+    def calcCost(self, me, node):
+        if abs(me[0] - node[0]) + (me[1] - node[1]) == 1:
+            return 1
+        else:
+            return 1.414
+
+    def heuristic(self, node, end):
+        diag = 1.414
+        deltaX = abs(node[0] - end[0])
+        deltaY = abs(node[1] - end[1])
+        return min(deltaX, deltaY) * diag + abs(deltaX - deltaY)
 
     def breadthFirstSearch(self):
         # make each node parent itself
@@ -64,7 +138,7 @@ class Search:
                 break
 
             # for each neighbor node
-            for nei in self.nodeNeighbors(node):
+            for nei in self.nodeNeighbors(node, False):
                 neiX, neiY = nei
 
                 # if its a wall, don't do anything
@@ -80,7 +154,7 @@ class Search:
                 else:
                     self.colorQ.put((neiX, neiY, red))
         self.backtrack()
-     
+
     def depthFirstSearch(self):
         # a queue to store nodes to check / travel to next
         myQueue = queue.LifoQueue()
@@ -100,7 +174,7 @@ class Search:
             self.colorQ.put((thisX, thisY, green))
 
             # for each neighbor node
-            for nei in self.nodeNeighbors(node):
+            for nei in self.nodeNeighbors(node, False):
                 neiX, neiY = nei
 
                 # only set parent if node has not already been visited
@@ -114,13 +188,13 @@ class Search:
                         break
         self.backtrack()
 
+    # find the path the algorithm took
     def backtrack(self):
         cur = self.end
         while cur != self.start:
-            # retrace steps and colour in path (using parent)
+            # colour in path white (using parent)
             cur = self.matrix[cur[0]][cur[1]].parent
             self.colorQ.put((cur[0], cur[1], white))
         # make start and end node blue
         self.colorQ.put((self.end[0], self.end[1], blue))
         self.colorQ.put((self.start[0], self.start[1], blue))
-

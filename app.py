@@ -15,23 +15,23 @@ green = [0, 255, 0]
 blue = [0, 0, 255]
 yellow = [255, 255, 0]
 
-# # run options window
-# app = mainWindow()
-# app.mainloop()
-#
-# # pull data from options window
-# alg = app.gameOptions["alg"].get()
-# startX = app.gameOptions["startX"].get()
-# startY = app.gameOptions["startY"].get()
-# endX = app.gameOptions["endX"].get()
-# endY = app.gameOptions["endY"].get()
+# run options window
+app = mainWindow()
+app.mainloop()
 
-# dev
-alg = "A Star Search"
-startX = 1
-startY = 1
-endX = 36
-endY = 36
+# pull data from options window
+alg = app.gameOptions["alg"].get()
+startX = app.gameOptions["startX"].get()
+startY = app.gameOptions["startY"].get()
+endX = app.gameOptions["endX"].get()
+endY = app.gameOptions["endY"].get()
+
+# # dev
+# alg = "A Star Search"
+# startX = 1
+# startY = 1
+# endX = 36
+# endY = 36
 
 # initialize board and initial squares
 colorQ = queue.Queue()
@@ -72,7 +72,7 @@ while not startVisualizing:
 
 # start a thread which runs the alg
 if alg == "A Star Search":
-    myThread == threading.Thread(target=mySearch.aStar())
+    myThread = threading.Thread(target=mySearch.aStar())
 elif alg == "Breadth First Search":
     myThread = threading.Thread(target=mySearch.breadthFirstSearch())
 elif alg == "Depth First Search":
@@ -90,6 +90,3 @@ while 1:
         x, y, c = colorQ.get()
         myBoard.colourOne(x, y, c)
         pygame.display.update()
-    else:
-        pygame.quit()
-        break
