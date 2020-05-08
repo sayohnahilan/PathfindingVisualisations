@@ -60,7 +60,7 @@ class Options(ttk.Frame):
             self,
             state="readonly",
             textvariable=self.controller.gameOptions["alg"],
-            values=("Breadth First Search", "Depth First Search"),
+            values=("A Star Search", "Breadth First Search", "Depth First Search"),
         )
         algBox.current(0)
         startXBox = ttk.Combobox(
@@ -84,6 +84,7 @@ class Options(ttk.Frame):
             textvariable=self.controller.gameOptions["endX"],
             width="5",
         )
+        endXBox.current(len(options) - 1)
         endYBox = ttk.Combobox(
             self,
             state="readyonly",
@@ -91,6 +92,7 @@ class Options(ttk.Frame):
             textvariable=self.controller.gameOptions["endY"],
             width="5",
         )
+        endYBox.current(len(options) - 1)
 
         confirmLabel = ttk.Label(
             self,

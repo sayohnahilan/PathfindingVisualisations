@@ -27,7 +27,7 @@ yellow = [255, 255, 0]
 # endY = app.gameOptions["endY"].get()
 
 # dev
-alg = "Depth First Search"
+alg = "A Star Search"
 startX = 1
 startY = 1
 endX = 36
@@ -71,7 +71,9 @@ while not startVisualizing:
 
 
 # start a thread which runs the alg
-if alg == "Breadth First Search":
+if alg == "A Star Search":
+    myThread == threading.Thread(target=mySearch.aStar())
+elif alg == "Breadth First Search":
     myThread = threading.Thread(target=mySearch.breadthFirstSearch())
 elif alg == "Depth First Search":
     myThread = threading.Thread(target=mySearch.depthFirstSearch())
