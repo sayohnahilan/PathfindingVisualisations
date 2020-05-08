@@ -12,8 +12,11 @@ Run project
 --------------
 [1] Clone repository.  
 [2] Navigate to repository.  
-[3] Run "pip install -r requirements.txt".  
-[4] Run "python app.py".  
+[3] Run  
+```console
+pip install -r requirements.txt  
+python app.py
+```
 
 Next Steps
 --------------
