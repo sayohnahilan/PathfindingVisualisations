@@ -19,21 +19,21 @@ yellow = [255, 255, 0]
 app = mainWindow()
 app.mainloop()
 
-# # pull data from options window
-# alg = app.gameOptions["alg"].get()
-# size = app.gameOptions["size"].get()
-# startX = app.gameOptions["startX"].get()
-# startY = app.gameOptions["startY"].get()
-# endX = app.gameOptions["endX"].get()
-# endY = app.gameOptions["endY"].get()
+# pull data from options window
+alg = app.gameOptions["alg"].get()
+size = app.gameOptions["size"].get()
+startX = app.gameOptions["startX"].get()
+startY = app.gameOptions["startY"].get()
+endX = app.gameOptions["endX"].get()
+endY = app.gameOptions["endY"].get()
 
-# dev
-alg = "A Star Search"
-size = 30
-startX = 1
-startY = 1
-endX = 15
-endY = 15
+# # dev
+# alg = "A Star Search"
+# size = 30
+# startX = 1
+# startY = 1
+# endX = 15
+# endY = 15
 
 # initialize board and initial squares
 colorQ = queue.Queue()
