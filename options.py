@@ -11,6 +11,7 @@ class mainWindow(tk.Tk):
 
         # Variables to pass onto runner
         self.gameOptions = {
+            "size": tk.IntVar(),
             "alg": tk.StringVar(),
             "startX": tk.IntVar(),
             "startY": tk.IntVar(),
@@ -25,35 +26,56 @@ class mainWindow(tk.Tk):
 
         # My frame
         self.frames = {}
-        windowName = Options.__name__
-        frame = Options(parent=controller, controller=self)
-        self.frames[windowName] = frame
-        frame.grid(column=0, row=0, sticky="nsew")
+        for fr in (Size, Options):
+            windowName = fr.__name__
+            frame = fr(parent=controller, controller=self)
+            self.frames[windowName] = frame
+            frame.grid(column=0, row=0, sticky="nsew")
 
         # Immediately show options frame
-        self.bringToFront("Options")
+        self.bringToFront("Size")
 
     # Bring myFrame to front
     def bringToFront(self, myFrame):
         frame = self.frames[myFrame]
         frame.tkraise()
-        frame.event_generate("<<ShowFrame>>")
+        frame.event_generate("<<BringToFront>>")
 
     def endGame(self):
         self.destroy()
 
+# initial window with the size box
+class Size(ttk.Frame):
+    def __init__(self, parent, controller):
+        ttk.Frame.__init__(self, parent)
+        self.controller = controller
+        options = [i for i in range(10, 41)]
+
+        sizeLabel = ttk.Label(self, text="Select a size for the grid, (x, y): ")
+        sizeBox = ttk.Combobox(
+            self,
+            state="readonly",
+            textvariable=self.controller.gameOptions["size"],
+            values=options,
+        )
+        sizeBox.current(0)
+        nextBtn = ttk.Button(
+            self, text="Next", command=lambda: controller.bringToFront("Options")
+        )
+        sizeBox.grid(column=1, row=0)
+        sizeLabel.grid(column=0, row=0, sticky=("nw"))
+        nextBtn.grid(column=2, row=2, pady=10)
 
 # Options the user can choose from
 class Options(ttk.Frame):
     def __init__(self, parent, controller):
         ttk.Frame.__init__(self, parent)
         self.controller = controller
+        self.bind("<<BringToFront>>", self.bringToFront)
 
         algLabel = ttk.Label(self, text="Select an algorithm: ")
         startLabel = ttk.Label(self, text="Select a start location, (x, y): ")
         endLabel = ttk.Label(self, text="Select a end location, (x, y): ")
-
-        options = [i for i in range(40)]
 
         # Checkboxes for options
         algBox = ttk.Combobox(
@@ -63,52 +85,60 @@ class Options(ttk.Frame):
             values=("A Star Search", "Breadth First Search", "Depth First Search"),
         )
         algBox.current(0)
-        startXBox = ttk.Combobox(
+        self.startXBox = ttk.Combobox(
             self,
             state="readonly",
-            values=options,
             textvariable=self.controller.gameOptions["startX"],
             width="5",
         )
-        startYBox = ttk.Combobox(
+        self.startYBox = ttk.Combobox(
             self,
             state="readonly",
-            values=options,
             textvariable=self.controller.gameOptions["startY"],
             width="5",
         )
-        endXBox = ttk.Combobox(
+        self.endXBox = ttk.Combobox(
             self,
             state="readonly",
-            values=options,
             textvariable=self.controller.gameOptions["endX"],
             width="5",
         )
-        endXBox.current(len(options) - 1)
-        endYBox = ttk.Combobox(
+        self.endYBox = ttk.Combobox(
             self,
             state="readyonly",
-            values=options,
             textvariable=self.controller.gameOptions["endY"],
             width="5",
         )
-        endYBox.current(len(options) - 1)
-
         confirmLabel = ttk.Label(
             self,
             text="Place walls with mouse and then press spacebar to begin visualizing.",
         )
 
+        backButton = ttk.Button(
+            self, text="Back", command=lambda: controller.bringToFront("Size")
+        )
         startButton = ttk.Button(
             self, text="Start", command=lambda: controller.endGame()
         )
+
         algLabel.grid(column=0, row=0, sticky=("nw"))
         startLabel.grid(column=0, row=1, sticky=("nw"))
         endLabel.grid(column=0, row=2, sticky=("nw"))
         algBox.grid(column=1, row=0)
-        startXBox.grid(column=1, row=1)
-        startYBox.grid(column=2, row=1)
-        endXBox.grid(column=1, row=2)
-        endYBox.grid(column=2, row=2)
+        self.startXBox.grid(column=1, row=1)
+        self.startYBox.grid(column=2, row=1)
+        self.endXBox.grid(column=1, row=2)
+        self.endYBox.grid(column=2, row=2)
         confirmLabel.grid(column=0, row=5, columnspan=2, rowspan=2)
+        backButton.grid(column=0, row=7, pady=10)
         startButton.grid(column=1, row=7, pady=10)
+
+    def bringToFront(self, event):
+        size = self.controller.gameOptions["size"].get()
+        dim = [i for i in range(size)]
+        self.startXBox["values"] = dim
+        self.startYBox["values"] = dim
+        self.endXBox["values"] = dim
+        self.endYBox["values"] = dim
+        self.endXBox.current(len(dim) - 1)
+        self.endYBox.current(len(dim) - 1)

@@ -9,11 +9,10 @@ To run:
 
 To do:  
 [1] Add restart ability.  
-[2] Add configurable window size.  
-[3] Add a speed/fps toggle.
-[4] Add more algorithms (Dijkstra, Swarm, etc.)  
-[5] Do not iterate on start square  
-[6] Handle no path case  
+[2] Add a speed/fps toggle.
+[3] Add more algorithms (Dijkstra, Swarm, etc.)  
+[4] Do not iterate on start square  
+[5] Handle no path case  
 
 Inspiration:  
 [1] [The Projects That Got Me Into Google](https://youtu.be/n4t_-NjY_Sg?t=178)  

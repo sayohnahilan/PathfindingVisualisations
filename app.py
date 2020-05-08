@@ -19,24 +19,26 @@ yellow = [255, 255, 0]
 app = mainWindow()
 app.mainloop()
 
-# pull data from options window
-alg = app.gameOptions["alg"].get()
-startX = app.gameOptions["startX"].get()
-startY = app.gameOptions["startY"].get()
-endX = app.gameOptions["endX"].get()
-endY = app.gameOptions["endY"].get()
+# # pull data from options window
+# alg = app.gameOptions["alg"].get()
+# size = app.gameOptions["size"].get()
+# startX = app.gameOptions["startX"].get()
+# startY = app.gameOptions["startY"].get()
+# endX = app.gameOptions["endX"].get()
+# endY = app.gameOptions["endY"].get()
 
-# # dev
-# alg = "A Star Search"
-# startX = 1
-# startY = 1
-# endX = 36
-# endY = 36
+# dev
+alg = "A Star Search"
+size = 30
+startX = 1
+startY = 1
+endX = 15
+endY = 15
 
 # initialize board and initial squares
 colorQ = queue.Queue()
-myBoard = Board(800, 800, black)
-mySearch = Search(40, 40, (startX, startY), (endX, endY), colorQ)
+myBoard = Board(size * 20, size * 20, black)
+mySearch = Search(size, size, (startX, startY), (endX, endY), colorQ)
 pygame.init()
 myBoard.drawLines(white)
 myBoard.colourOne(startX, startY, blue)
