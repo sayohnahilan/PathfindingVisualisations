@@ -27,7 +27,7 @@ yellow = [255, 255, 0]
 # endY = app.gameOptions["endY"].get()
 
 # dev
-alg = "Breadth First Search"
+alg = "Depth First Search"
 startX = 1
 startY = 1
 endX = 36
@@ -64,7 +64,7 @@ while not startVisualizing:
                 mouseX, mouseY = myBoard.findSquare(event.pos[0], event.pos[1])
                 square = pygame.Rect(mouseX, mouseY, 20, 20)
                 pygame.draw.rect(myBoard.screen, yellow, square)
-                mySearch.makeWall(mouseY // 20, mouseX // 20, yellow)
+                mySearch.colourMatrix(mouseY // 20, mouseX // 20, yellow)
             except:
                 pass
     pygame.display.update()
@@ -88,3 +88,6 @@ while 1:
         x, y, c = colorQ.get()
         myBoard.colourOne(x, y, c)
         pygame.display.update()
+    else:
+        pygame.quit()
+        break

@@ -1,5 +1,4 @@
 import queue
-import sys
 
 white = [255, 255, 255]
 black = [0, 0, 0]
@@ -11,7 +10,6 @@ yellow = [255, 255, 0]
 class Node:
     c = black
     parent = (0, 0)
-    g = sys.maxsize  # cost
 
 
 class Search:
@@ -25,9 +23,8 @@ class Search:
         self.matrix = [[Node() for i in range(x)] for j in range(y)]
 
 
-    # when a wall is coloured in, give it a big cost
-    def makeWall(self, x, y, c):
-        self.matrix[x][y].g = sys.maxsize
+    # setter for a matrix location
+    def colourMatrix(self, x, y, c):
         self.matrix[x][y].c = c
 
     # return the nodes beside a start node
@@ -54,7 +51,6 @@ class Search:
         # a queue to store nodes to check / travel to next
         myQueue = queue.Queue()
         myQueue.put(self.start)
-        self.atEndNode = False
 
         # set start node to cost 0
         self.matrix[self.start[0]][self.start[1]].g = 0
@@ -62,7 +58,6 @@ class Search:
         # for every node in queue
         while not myQueue.empty():
             node = myQueue.get()
-            thisX, thisY = node
 
             # if at end node, stop
             if node == self.end:
@@ -76,21 +71,56 @@ class Search:
                 if self.matrix[neiX][neiY].c == yellow:
                     continue
 
-                # if it is maxsize, it has not been visited (add to queue)
-                if self.matrix[neiX][neiY].g == sys.maxsize:
+                # only set parent if node has not already been visited
+                if self.matrix[neiX][neiY].c == black:
                     myQueue.put(nei)
-                    self.matrix[neiX][neiY].g = self.matrix[thisX][thisY].g + 1
+                    self.colourMatrix(neiX, neiY, green)
                     self.matrix[neiX][neiY].parent = node
                     self.colorQ.put((neiX, neiY, green))
                 else:
                     self.colorQ.put((neiX, neiY, red))
+        self.backtrack()
+     
+    def depthFirstSearch(self):
+        # a queue to store nodes to check / travel to next
+        myQueue = queue.LifoQueue()
+        myQueue.put(self.start)
 
+        # for every node in queue
+        while not myQueue.empty() and self.atEndNode == False:
+            node = myQueue.get()
+            thisX, thisY = node
+
+            # if its a wall, don't do anything
+            if self.matrix[thisX][thisY].c == yellow:
+                continue
+
+            # make the current node green
+            self.colourMatrix(thisX, thisY, green)
+            self.colorQ.put((thisX, thisY, green))
+
+            # for each neighbor node
+            for nei in self.nodeNeighbors(node):
+                neiX, neiY = nei
+
+                # only set parent if node has not already been visited
+                if self.matrix[neiX][neiY].c == black:
+                    self.matrix[neiX][neiY].parent = node
+                    myQueue.put((neiX, neiY))
+
+                    # stop if end has been found
+                    if (neiX, neiY) == self.end:
+                        self.atEndNode = True
+                        break
+        self.backtrack()
+
+    def backtrack(self):
         cur = self.end
-        # make end node blue
-        self.colorQ.put((cur[0], cur[1], blue))
         while cur != self.start:
             # retrace steps and colour in path (using parent)
             cur = self.matrix[cur[0]][cur[1]].parent
             self.colorQ.put((cur[0], cur[1], white))
-        self.colorQ.put((cur[0], cur[1], blue))
+        # make start and end node blue
+        self.colorQ.put((self.end[0], self.end[1], blue))
+        self.colorQ.put((self.start[0], self.start[1], blue))
 
