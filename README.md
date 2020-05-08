@@ -1,23 +1,34 @@
 # PathfindingVisualisations
 Using pygame to visualize various pathfinding algorithms. 
 
-To run:  
+<!--ts-->
+   * [Run project](#run-project)
+   * [Next Steps](#next-steps)
+   * [Inspiration](#inspiration)
+   * [Resources](#resources)
+<!--te-->
+
+Run project
+--------------
 [1] Clone repository.  
 [2] Navigate to repository.  
 [3] Run "pip install -r requirements.txt".  
 [4] Run "python app.py".  
 
-To do:  
+Next Steps
+--------------
 [1] Add restart ability.  
 [2] Add a speed/fps toggle.
 [3] Add more algorithms (Dijkstra, Swarm, etc.)  
 [4] Do not iterate on start square  
 [5] Handle no path case  
 
-Inspiration:  
+Inspiration
+--------------
 [1] [The Projects That Got Me Into Google](https://youtu.be/n4t_-NjY_Sg?t=178)  
 
-Resources:  
+Resources
+--------------
 [1] [Multiple Windows/Frames in Tkinter GUI with Python](https://pythonprogramming.net/change-show-new-frame-tkinter/)  
 [2] [Tkinter ttk Combobox](https://docs.python.org/3/library/tkinter.ttk.html#tkinter.ttk.Combobox)  
 [3] [Pygame Tutorials - Input Handling](https://www.pygame.org/ftp/contrib/input.html)  
