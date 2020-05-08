@@ -13,10 +13,10 @@ green = [0, 255, 0]
 blue = [0, 0, 255]
 yellow = [255, 255, 0]
 
+# main
 # run options window
 app = mainWindow()
 app.mainloop()
-
 # pull data from options window
 size = app.gameOptions["size"].get()
 fps = app.gameOptions["fps"].get()
@@ -31,9 +31,9 @@ endY = app.gameOptions["endY"].get()
 # size = 30
 # startX = 1
 # startY = 1
-# endX = 15
-# endY = 15
-# fps = 240
+# endX = 27
+# endY = 27
+# fps = 540
 
 # initialize board and initial squares
 colorQ = queue.Queue()

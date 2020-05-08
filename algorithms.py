@@ -99,7 +99,8 @@ class Search:
                     heapq.heappush(priorityQueue, (f, nei))
                     self.matrix[neiX][neiY].parent = node
                     self.colorQ.put((neiX, neiY, green))
-        self.backtrack()
+        if self.atEndNode:
+            self.backtrack()
 
     # returns one if in same row/column, else 1.414
     def calcCost(self, me, node):
@@ -133,6 +134,7 @@ class Search:
 
             # if at end node, stop
             if node == self.end:
+                self.atEndNode = True
                 break
 
             # for each neighbor node
@@ -151,7 +153,8 @@ class Search:
                     self.colorQ.put((neiX, neiY, green))
                 else:
                     self.colorQ.put((neiX, neiY, red))
-        self.backtrack()
+        if self.atEndNode:
+            self.backtrack()
 
     def depthFirstSearch(self):
         # a queue to store nodes to check / travel to next
@@ -184,7 +187,8 @@ class Search:
                     if (neiX, neiY) == self.end:
                         self.atEndNode = True
                         break
-        self.backtrack()
+        if self.atEndNode:
+            self.backtrack()
 
     # find the path the algorithm took
     def backtrack(self):

@@ -22,8 +22,7 @@ Next Steps
 [1] Add restart ability.  
 [2] Add more algorithms (Dijkstra, Swarm, etc.)  
 [3] Do not iterate on start square  
-[4] Handle no path case  
-[5] Add a maze creation functionality  
+[4] Add a maze creation functionality  
 
 Inspiration
 --------------
