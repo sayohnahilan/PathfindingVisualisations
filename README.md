@@ -2,10 +2,10 @@
 Using pygame to visualize various pathfinding algorithms. 
 
 To run:
-1. Clone repository.
-2. Navigate to repository.
-3. Run "pip install -r requirements.txt".
-4. Run "python app.py".
+[1] Clone repository.
+[2] Navigate to repository.
+[3] Run "pip install -r requirements.txt".
+[4] Run "python app.py".
 
 Inspiration:  
 [1] [The Projects That Got Me Into Google](https://youtu.be/n4t_-NjY_Sg?t=178)  
