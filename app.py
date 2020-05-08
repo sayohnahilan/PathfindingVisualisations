@@ -1,7 +1,5 @@
-import sys
 import pygame
 from pygame.locals import *
-import queue
 import threading
 from options import *
 from board import *
@@ -20,8 +18,9 @@ app = mainWindow()
 app.mainloop()
 
 # pull data from options window
-alg = app.gameOptions["alg"].get()
 size = app.gameOptions["size"].get()
+fps = app.gameOptions["fps"].get()
+alg = app.gameOptions["alg"].get()
 startX = app.gameOptions["startX"].get()
 startY = app.gameOptions["startY"].get()
 endX = app.gameOptions["endX"].get()
@@ -34,12 +33,14 @@ endY = app.gameOptions["endY"].get()
 # startY = 1
 # endX = 15
 # endY = 15
+# fps = 240
 
 # initialize board and initial squares
 colorQ = queue.Queue()
 myBoard = Board(size * 20, size * 20, black)
 mySearch = Search(size, size, (startX, startY), (endX, endY), colorQ)
 pygame.init()
+clock = pygame.time.Clock()
 pygame.display.set_caption('Visualizing Pathfinding Algorithms')
 myBoard.drawLines(white)
 myBoard.colourOne(startX, startY, blue)
@@ -84,6 +85,7 @@ myThread.start()
 
 
 while 1:
+    clock.tick(fps)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()

@@ -18,10 +18,9 @@ Run project
 Next Steps
 --------------
 [1] Add restart ability.  
-[2] Add a speed/fps toggle.
-[3] Add more algorithms (Dijkstra, Swarm, etc.)  
-[4] Do not iterate on start square  
-[5] Handle no path case  
+[2] Add more algorithms (Dijkstra, Swarm, etc.)  
+[3] Do not iterate on start square  
+[4] Handle no path case  
 
 Inspiration
 --------------

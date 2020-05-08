@@ -12,6 +12,7 @@ class mainWindow(tk.Tk):
         # Variables to pass onto runner
         self.gameOptions = {
             "size": tk.IntVar(),
+            "fps": tk.IntVar(),
             "alg": tk.StringVar(),
             "startX": tk.IntVar(),
             "startY": tk.IntVar(),
@@ -49,21 +50,30 @@ class Size(ttk.Frame):
     def __init__(self, parent, controller):
         ttk.Frame.__init__(self, parent)
         self.controller = controller
-        options = [i for i in range(10, 41)]
 
         sizeLabel = ttk.Label(self, text="Select a size for the grid, (x, y): ")
         sizeBox = ttk.Combobox(
             self,
             state="readonly",
             textvariable=self.controller.gameOptions["size"],
-            values=options,
+            values=[i for i in range(10, 41)],
         )
         sizeBox.current(0)
+        speedLabel = ttk.Label(self, text="Select a speed: ")
+        speedBox = ttk.Combobox(
+            self,
+            state="readonly",
+            textvariable=self.controller.gameOptions["fps"],
+            values=[30, 60, 120, 240, 540],
+        )
+        speedBox.current(4)
         nextBtn = ttk.Button(
             self, text="Next", command=lambda: controller.bringToFront("Options")
         )
-        sizeBox.grid(column=1, row=0)
         sizeLabel.grid(column=0, row=0, sticky=("nw"))
+        speedLabel.grid(column=0, row=1, sticky=("nw"))
+        sizeBox.grid(column=1, row=0)
+        speedBox.grid(column=1, row=1)
         nextBtn.grid(column=2, row=2, pady=10)
 
 # Options the user can choose from
