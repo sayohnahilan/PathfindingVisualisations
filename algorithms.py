@@ -36,11 +36,9 @@ class Search:
     # return the nodes beside a start node
     def nodeNeighbors(self, node, diag):
         x, y = node
+        adj = [(x, y + 1), (x + 1, y), (x, y - 1), (x - 1, y)]
         if diag == True:
-            adj = [(x - 1, y), (x - 1, y + 1), (x, y + 1), (x + 1, y + 1), (x + 1, y), (x + 1, y - 1), (x, y - 1),
-                   (x - 1, y - 1)]
-        else:
-            adj = [(x, y + 1), (x + 1, y), (x, y - 1), (x - 1, y)]
+            adj.extend([(x - 1, y + 1), (x + 1, y + 1), (x + 1, y - 1), (x - 1, y - 1)])
         adj = filter(self.onScreen, adj)
         return adj
 
