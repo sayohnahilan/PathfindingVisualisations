@@ -10,10 +10,9 @@ Using pygame to visualize various pathfinding algorithms.
 
 Run project
 --------------
-[1] Clone repository.  
-[2] Navigate to repository.  
-[3] Run  
 ```console
+git clone https://github.com/sayohnahilan/PathfindingVisualisations.git  
+cd PathfindingVisualisations  
 pip install -r requirements.txt  
 python app.py
 ```
