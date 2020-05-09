@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-
+import sys
 
 # A controller window for other frames
 class mainWindow(tk.Tk):
@@ -19,6 +19,15 @@ class mainWindow(tk.Tk):
             "endX": tk.IntVar(),
             "endY": tk.IntVar(),
         }
+
+        # Centers the tkinter window
+        w = self.winfo_reqwidth()
+        h = self.winfo_reqheight()
+        ws = self.winfo_screenwidth()
+        hs = self.winfo_screenheight()
+        x = (ws / 2) - (w / 2)
+        y = (hs / 2) - (h / 2)
+        self.geometry("+%d+%d" % (x, y))
 
         controller = tk.Frame(self)
         controller.grid(column=0, row=0)
@@ -51,14 +60,15 @@ class Size(ttk.Frame):
         ttk.Frame.__init__(self, parent)
         self.controller = controller
 
+        sizeValues = [i for i in range(10, 41)]
         sizeLabel = ttk.Label(self, text="Select a size for the grid, (x, y): ")
         sizeBox = ttk.Combobox(
             self,
             state="readonly",
             textvariable=self.controller.gameOptions["size"],
-            values=[i for i in range(10, 41)],
+            values=sizeValues,
         )
-        sizeBox.current(0)
+        sizeBox.current(len(sizeValues) - 1)
         speedLabel = ttk.Label(self, text="Select a speed: ")
         speedBox = ttk.Combobox(
             self,
@@ -70,10 +80,14 @@ class Size(ttk.Frame):
         nextBtn = ttk.Button(
             self, text="Next", command=lambda: controller.bringToFront("Options")
         )
+        quitBtn = ttk.Button(
+            self, text="Quit", command=lambda: sys.exit()
+        )
         sizeLabel.grid(column=0, row=0, sticky=("nw"))
         speedLabel.grid(column=0, row=1, sticky=("nw"))
         sizeBox.grid(column=1, row=0)
         speedBox.grid(column=1, row=1)
+        quitBtn.grid(column=1, row=2, pady=10)
         nextBtn.grid(column=2, row=2, pady=10)
 
 # Options the user can choose from
@@ -130,6 +144,9 @@ class Options(ttk.Frame):
         startButton = ttk.Button(
             self, text="Start", command=lambda: controller.endGame()
         )
+        quitBtn = ttk.Button(
+            self, text="Quit", command=lambda: sys.exit()
+        )
 
         algLabel.grid(column=0, row=0, sticky=("nw"))
         startLabel.grid(column=0, row=1, sticky=("nw"))
@@ -140,8 +157,9 @@ class Options(ttk.Frame):
         self.endXBox.grid(column=1, row=2)
         self.endYBox.grid(column=2, row=2)
         confirmLabel.grid(column=0, row=5, columnspan=2, rowspan=2)
-        backButton.grid(column=0, row=7, pady=10)
-        startButton.grid(column=1, row=7, pady=10)
+        backButton.grid(column=1, row=7)
+        startButton.grid(column=2, row=7)
+        quitBtn.grid(column=0, row=7)
 
     def bringToFront(self, event):
         size = self.controller.gameOptions["size"].get()

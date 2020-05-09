@@ -19,10 +19,9 @@ python app.py
 
 Next Steps
 --------------
-[1] Add restart ability.  
-[2] Add more algorithms (Dijkstra, Swarm, etc.)  
-[3] Do not iterate on start square  
-[4] Add a maze creation functionality  
+[1] Add more algorithms (Dijkstra, Swarm, etc.)  
+[2] Do not iterate on start square  
+[3] Add a maze creation functionality  
 
 Inspiration
 --------------
