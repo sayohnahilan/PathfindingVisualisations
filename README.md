@@ -19,7 +19,7 @@ python app.py
 
 Next Steps
 --------------
-[1] Add more algorithms (Dijkstra, Swarm, etc.)  
+[1] Add more algorithms (Swarm, etc.)  
 [2] Add a maze creation functionality  
 
 Inspiration

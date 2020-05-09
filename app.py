@@ -28,7 +28,7 @@ while 1:
     endY = app.gameOptions["endY"].get()
 
     # # dev
-    # alg = "A Star Search"
+    # alg = "Dijkstra's Algorithm"
     # size = 30
     # startX = 1
     # startY = 1
@@ -76,7 +76,9 @@ while 1:
 
 
     # start a thread which runs the alg
-    if alg == "A Star Search":
+    if alg == "Dijkstra's Algorithm":
+        myThread = threading.Thread(target=mySearch.dijkstra())
+    elif alg == "A Star Search":
         myThread = threading.Thread(target=mySearch.aStar())
     elif alg == "Breadth First Search":
         myThread = threading.Thread(target=mySearch.breadthFirstSearch())
