@@ -15,7 +15,7 @@ class Node:
     parent = (0, 0)
     g = sys.maxsize  # cost
     h = 0
-    f = 0  # = g + h
+    f = 0
 
 
 class Search:
