@@ -106,7 +106,7 @@ class Options(ttk.Frame):
             self,
             state="readonly",
             textvariable=self.controller.gameOptions["alg"],
-            values=("Dijkstra's Algorithm", "A Star Search", "Breadth First Search", "Depth First Search"),
+            values=("Best First Search", "Dijkstra's Algorithm", "A Star Search", "Breadth First Search", "Depth First Search"),
         )
         algBox.current(0)
         self.startXBox = ttk.Combobox(

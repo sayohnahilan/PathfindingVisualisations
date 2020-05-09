@@ -19,8 +19,7 @@ python app.py
 
 Next Steps
 --------------
-[1] Add more algorithms (Swarm, etc.)  
-[2] Add a maze creation functionality  
+[1] Add a maze creation functionality  
 
 Inspiration
 --------------
@@ -36,3 +35,5 @@ Resources
 [6] [Depth First Search](https://www.hackerearth.com/practice/algorithms/graphs/depth-first-search/tutorial/)  
 [7] [A* (star) Pathfinding](https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2)  
 [8] [Heap queue algorithm](https://docs.python.org/3/library/heapq.html)  
+[9] [Dijkstra’s algorithm](https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/)  
+[10] [Best First Search](https://www.geeksforgeeks.org/best-first-search-informed-search/)  
