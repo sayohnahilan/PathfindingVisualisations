@@ -20,8 +20,7 @@ python app.py
 Next Steps
 --------------
 [1] Add more algorithms (Dijkstra, Swarm, etc.)  
-[2] Do not iterate on start square  
-[3] Add a maze creation functionality  
+[2] Add a maze creation functionality  
 
 Inspiration
 --------------
