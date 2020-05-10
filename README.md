@@ -19,7 +19,7 @@ python app.py
 
 Next Steps
 --------------
-[1] Add a maze creation functionality  
+[1] Delete wall ability  
 
 Inspiration
 --------------

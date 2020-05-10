@@ -13,6 +13,7 @@ class mainWindow(tk.Tk):
         self.gameOptions = {
             "size": tk.IntVar(),
             "fps": tk.IntVar(),
+            "maze": tk.StringVar(),
             "alg": tk.StringVar(),
             "startX": tk.IntVar(),
             "startY": tk.IntVar(),
@@ -77,6 +78,14 @@ class Size(ttk.Frame):
             values=[30, 60, 120, 240, 540],
         )
         speedBox.current(4)
+        mazeLabel = ttk.Label(self, text="Select a maze: ")
+        mazeBox = ttk.Combobox(
+            self,
+            state="readonly",
+            textvariable=self.controller.gameOptions["maze"],
+            values=["No Maze", "Random Maze"]
+        )
+        mazeBox.current(0)
         nextBtn = ttk.Button(
             self, text="Next", command=lambda: controller.bringToFront("Options")
         )
@@ -85,10 +94,12 @@ class Size(ttk.Frame):
         )
         sizeLabel.grid(column=0, row=0, sticky=("nw"))
         speedLabel.grid(column=0, row=1, sticky=("nw"))
+        mazeLabel.grid(column=0, row=2, sticky=("nw"))
         sizeBox.grid(column=1, row=0)
         speedBox.grid(column=1, row=1)
-        quitBtn.grid(column=1, row=2, pady=10)
-        nextBtn.grid(column=2, row=2, pady=10)
+        mazeBox.grid(column=1, row=2)
+        quitBtn.grid(column=1, row=3, pady=10)
+        nextBtn.grid(column=2, row=3, pady=10)
 
 # Options the user can choose from
 class Options(ttk.Frame):

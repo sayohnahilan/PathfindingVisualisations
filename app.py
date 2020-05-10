@@ -1,6 +1,9 @@
 import pygame
 from pygame.locals import *
 import threading
+import math
+from random import seed
+from random import random
 from options import *
 from board import *
 from algorithms import *
@@ -21,6 +24,7 @@ while 1:
     # pull data from options window
     size = app.gameOptions["size"].get()
     fps = app.gameOptions["fps"].get()
+    maze = app.gameOptions["maze"].get()
     alg = app.gameOptions["alg"].get()
     startX = app.gameOptions["startX"].get()
     startY = app.gameOptions["startY"].get()
@@ -29,6 +33,7 @@ while 1:
 
     # # dev
     # alg = "Best First Search"
+    # maze = "Random Maze"
     # size = 30
     # startX = 1
     # startY = 1
@@ -46,6 +51,23 @@ while 1:
     myBoard.drawLines(white)
     myBoard.colourOne(startX, startY, blue)
     myBoard.colourOne(endX, endY, blue)
+
+    # draw a maze if the user requests it
+    if maze == "Random Maze":
+        for i in range(math.floor(size ** 2 / 2)):
+            seed(i)
+            x = math.floor(size * 20 * random() + 1)
+            y = math.floor(size * 20 * random() + 1)
+            try:
+                mouseX, mouseY = myBoard.findSquare(x, y)
+                if not (mouseX == startX * 20 and mouseY == startY * 20) and not (
+                        mouseX == endX * 20 and mouseY == endY * 20):
+                    square = pygame.Rect(mouseX, mouseY, 20, 20)
+                    pygame.draw.rect(myBoard.screen, yellow, square)
+                    mySearch.colourMatrix(mouseY // 20, mouseX // 20, yellow)
+            except:
+                pass
+        pygame.display.update()
 
     # Add walls
     mouseX = 0
@@ -67,9 +89,11 @@ while 1:
             if drawingWalls:
                 try:
                     mouseX, mouseY = myBoard.findSquare(event.pos[0], event.pos[1])
-                    square = pygame.Rect(mouseX, mouseY, 20, 20)
-                    pygame.draw.rect(myBoard.screen, yellow, square)
-                    mySearch.colourMatrix(mouseY // 20, mouseX // 20, yellow)
+                    if not (mouseX == startX * 20 and mouseY == startY * 20) and not (
+                            mouseX == endX * 20 and mouseY == endY * 20):
+                        square = pygame.Rect(mouseX, mouseY, 20, 20)
+                        pygame.draw.rect(myBoard.screen, yellow, square)
+                        mySearch.colourMatrix(mouseY // 20, mouseX // 20, yellow)
                 except:
                     pass
         pygame.display.update()
