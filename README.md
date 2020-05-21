@@ -3,7 +3,6 @@ Using pygame to visualize various pathfinding algorithms.
 
 <!--ts-->
    * [Run project](#run-project)
-   * [Next Steps](#next-steps)
    * [Inspiration](#inspiration)
    * [Resources](#resources)
 <!--te-->
