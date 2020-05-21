@@ -1,12 +1,13 @@
-import pygame
-from pygame.locals import *
-import threading
 import math
-from random import seed
+import threading
 from random import random
-from options import *
-from board import *
-from algorithms import *
+from random import seed
+
+from pygame.locals import *
+
+from searchAlgorithms import *
+from pygameBoard import *
+from optionsWindow import *
 
 # colours
 white = [255, 255, 255]
@@ -17,7 +18,7 @@ blue = [0, 0, 255]
 yellow = [255, 255, 0]
 
 while 1:
-    # main
+    # # main
     # run options window
     app = mainWindow()
     app.mainloop()
@@ -31,7 +32,8 @@ while 1:
     endX = app.gameOptions["endX"].get()
     endY = app.gameOptions["endY"].get()
 
-    # # dev
+    # # dev // uncomment section below to run with dev config
+    # sample dev values from options window
     # alg = "Best First Search"
     # maze = "Random Maze"
     # size = 30
