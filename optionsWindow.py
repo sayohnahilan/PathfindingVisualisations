@@ -77,7 +77,7 @@ class Size(ttk.Frame):
             textvariable=self.controller.gameOptions["fps"],
             values=[30, 60, 120, 240, 540],
         )
-        speedBox.current(4)
+        speedBox.current(1)
         mazeLabel = ttk.Label(self, text="Select a maze: ")
         mazeBox = ttk.Combobox(
             self,
@@ -146,7 +146,7 @@ class Options(ttk.Frame):
         )
         confirmLabel = ttk.Label(
             self,
-            text="Place walls with mouse and then press spacebar to begin visualizing.",
+            text="Place walls with mouse left.\nRemove walls with mouse right.\nPress spacebar to begin visualizing.",
         )
 
         backButton = ttk.Button(
@@ -167,7 +167,7 @@ class Options(ttk.Frame):
         self.startYBox.grid(column=2, row=1)
         self.endXBox.grid(column=1, row=2)
         self.endYBox.grid(column=2, row=2)
-        confirmLabel.grid(column=0, row=5, columnspan=2, rowspan=2)
+        confirmLabel.grid(column=0, row=5)
         backButton.grid(column=1, row=7)
         startButton.grid(column=2, row=7)
         quitBtn.grid(column=0, row=7)

@@ -2,9 +2,7 @@ import math
 import threading
 from random import random
 from random import seed
-
 from pygame.locals import *
-
 from searchAlgorithms import *
 from pygameBoard import *
 from optionsWindow import *
@@ -12,8 +10,6 @@ from optionsWindow import *
 # colours
 white = [255, 255, 255]
 black = [0, 0, 0]
-red = [255, 0, 0]
-green = [0, 255, 0]
 blue = [0, 0, 255]
 yellow = [255, 255, 0]
 
@@ -60,23 +56,21 @@ while 1:
             seed(i)
             x = math.floor(size * 20 * random() + 1)
             y = math.floor(size * 20 * random() + 1)
-            try:
-                mouseX, mouseY = myBoard.findSquare(x, y)
-                mouseX //= 20
-                mouseY //= 20
-                if not (mouseX == startX and mouseY == startY) and not (
-                        mouseX == endX and mouseY == endY):
-                    myBoard.colourOne(mouseY, mouseX, yellow)
-                    mySearch.colourMatrix(mouseY, mouseX, yellow)
-            except:
-                pass
+            mouseX, mouseY = myBoard.findSquare(x, y)
+            mouseX //= 20
+            mouseY //= 20
+            if not (mouseX == startX and mouseY == startY) and not (
+                    mouseX == endX and mouseY == endY):
+                myBoard.colourOne(mouseY, mouseX, yellow)
+                mySearch.colourMatrix(mouseY, mouseX, yellow)
         pygame.display.update()
 
-    # Add walls
+    # add and remove walls
     mouseX = 0
     mouseY = 0
     startVisualizing = False
-    drawingWalls = False
+    insertingWalls = False
+    removingWalls = False
     while not startVisualizing:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -85,27 +79,40 @@ while 1:
                 if event.key == pygame.K_SPACE:
                     startVisualizing = True
             elif event.type == MOUSEBUTTONDOWN:
-                drawingWalls = True
+                if event.button == 1:
+                    insertingWalls = True
+                elif event.button == 3:
+                    removingWalls = True
             elif event.type == MOUSEBUTTONUP:
-                drawingWalls = False
+                insertingWalls = False
+                removingWalls = False
 
-            if drawingWalls:
-                try:
-                    mouseX, mouseY = myBoard.findSquare(event.pos[0], event.pos[1])
-                    gridX = mouseX // 20
-                    gridY = mouseY // 20
-                    if not (gridX == startX and gridY == startY) and not (
-                            gridX == endX and gridY == endY):
-                        if mySearch.matrix[gridY][gridX].c == yellow:
-                            square = pygame.Rect(mouseX + 1, mouseY + 1, 18, 18)
-                            pygame.draw.rect(myBoard.screen, black, square)
-                            mySearch.colourMatrix(gridY, mouseX // 20, black)
-                        else:
-                            myBoard.colourOne(gridY, gridX, yellow)
-                            mySearch.colourMatrix(gridY, gridX, yellow)
-                except:
-                    pass
-        pygame.display.update()
+            # get mouse and grid position if mouse is clicked in some way
+            if insertingWalls or removingWalls:
+                mouseX, mouseY = myBoard.findSquare(event.pos[0], event.pos[1])
+                gridX = mouseX // 20
+                gridY = mouseY // 20
+
+                # check for start or end square
+                if (gridX == startX and gridY == startY) or (
+                        gridX == endX and gridY == endY):
+                    insertingWalls = False
+                    removingWalls = False
+
+                # draw a wall if not start or end square
+                if insertingWalls:
+                    myBoard.colourOne(gridY, gridX, yellow)
+                    mySearch.colourMatrix(gridY, gridX, yellow)
+
+                # remove a wall if not start or end square
+                if removingWalls:
+                    if mySearch.matrix[gridY][gridX].c == yellow:
+                        square = pygame.Rect(mouseX + 1, mouseY + 1, 18, 18)
+                        pygame.draw.rect(myBoard.screen, black, square)
+                        mySearch.colourMatrix(gridY, mouseX // 20, black)
+
+            # redisplay with updates
+            pygame.display.update()
 
 
     # start a thread which runs the alg
@@ -122,6 +129,7 @@ while 1:
     myThread.start()
 
 
+    # in main thread, run visualizations
     backTracking = True
     while backTracking:
         clock.tick(fps)
