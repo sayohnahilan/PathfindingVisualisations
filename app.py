@@ -1,17 +1,20 @@
 import math
 import threading
+import queue
 from random import random
 from random import seed
 from pygame.locals import *
-from searchAlgorithms import *
+from SearchAlgorithms.mainSearch import *
 from pygameBoard import *
 from optionsWindow import *
+from colours import *
 
-# colours
-white = [255, 255, 255]
-black = [0, 0, 0]
-blue = [0, 0, 255]
-yellow = [255, 255, 0]
+# import all search algorithms
+from SearchAlgorithms.bestFirst import bestFirst
+from SearchAlgorithms.dijkstra import dijkstra
+from SearchAlgorithms.aStar import aStar
+from SearchAlgorithms.breadthFirst import breadthFirst
+from SearchAlgorithms.depthFirst import depthFirst
 
 while 1:
     # # main
@@ -117,15 +120,15 @@ while 1:
 
     # start a thread which runs the alg
     if alg == "Best First Search":
-        myThread = threading.Thread(target=mySearch.bestFirst())
+        myThread = threading.Thread(target=bestFirst(mySearch))
     elif alg == "Dijkstra's Algorithm":
-        myThread = threading.Thread(target=mySearch.dijkstra())
+        myThread = threading.Thread(target=dijkstra(mySearch))
     elif alg == "A Star Search":
-        myThread = threading.Thread(target=mySearch.aStar())
+        myThread = threading.Thread(target=aStar(mySearch))
     elif alg == "Breadth First Search":
-        myThread = threading.Thread(target=mySearch.breadthFirstSearch())
+        myThread = threading.Thread(target=breadthFirst(mySearch))
     elif alg == "Depth First Search":
-        myThread = threading.Thread(target=mySearch.depthFirstSearch())
+        myThread = threading.Thread(target=depthFirst(mySearch))
     myThread.start()
 
 
