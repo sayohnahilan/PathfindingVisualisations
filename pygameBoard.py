@@ -20,7 +20,7 @@ class Board:
     def colourOne(self, x, y, c):
         x *= 20
         y *= 20
-        square = pygame.Rect(y, x, 19, 19)
+        square = pygame.Rect(y + 1, x + 1, 18, 18)
         pygame.draw.rect(self.screen, c, square)
 
     def findSquare(self, x, y):

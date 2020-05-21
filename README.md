@@ -17,10 +17,6 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Next Steps
---------------
-[1] Delete wall ability  
-
 Inspiration
 --------------
 [1] [The Projects That Got Me Into Google](https://youtu.be/n4t_-NjY_Sg?t=178)  
